@@ -25,6 +25,7 @@ public class Jump {
     @RequestMapping("/user/login")
     public String Login(@RequestParam("userName") String userName, HttpSession session){
         User user = userService.SelectUserByName(userName);
+        session.setAttribute("okk","whatever");
         if (user != null){
             session.setAttribute("user",user);
             return "index";
@@ -35,12 +36,21 @@ public class Jump {
     }
 
     @RequestMapping("/user/logout")
-    @ResponseBody
     public String Logout(HttpSession session, Model model){
         session.removeAttribute("user");
         session.setAttribute("msg","您已退出，请登录后访问");
         return "login";
     }
 
+
+    @RequestMapping("/tesTest")
+    public String test(HttpSession session, Model model){
+        if(session != null){
+            model.addAttribute("okk","whatever");
+        }else {
+            model.addAttribute("ok","whatever");
+        }
+        return "test";
+    }
 
 }
